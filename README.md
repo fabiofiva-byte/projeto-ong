@@ -3,7 +3,7 @@
 ## 📋 Sobre o Projeto
 Este projeto foi desenvolvido como parte do desafio prático da disciplina de Design Profissional (Ciência da Computação). O objetivo principal é transformar uma interface estática em uma aplicação dinâmica e interativa, simulando funcionalidades de uma aplicação real.
 
-A aplicação permite que os usuários conheçam as ações sociais da CommunityRiosa, interajam com a plataforma navegando pelos projetos e utilizem formulários validados para simular engajamento e contato.
+A aplicação permite que os usuários conheçam as ações sociais da ONG Educação e Inclusão, interajam com a plataforma navegando pelos projetos e utilizem formulários validados para simular engajamento e contato.
 
 ## 💻 Tecnologias Utilizadas
 * **HTML5:** Estruturação semântica do conteúdo.

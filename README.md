@@ -1,4 +1,4 @@
-# 🚀 Projeto ONG - CommunityRiosa
+# 🚀 Projeto ONG - Educação e Inclusão
 
 ## 📋 Sobre o Projeto
 Este projeto foi desenvolvido como parte do desafio prático da disciplina de Design Profissional (Ciência da Computação). O objetivo principal é transformar uma interface estática em uma aplicação dinâmica e interativa, simulando funcionalidades de uma aplicação real.

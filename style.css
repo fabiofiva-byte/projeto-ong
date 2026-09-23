@@ -1,0 +1,208 @@
+/* Reset básico e variáveis de cores */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #1a365d;
+    --secondary-color: #319795;
+    --accent-color: #ed8936;
+    --bg-color: #f7fafc;
+    --text-color: #2d3748;
+    --white: #ffffff;
+    --transition: all 0.3s ease;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+/* Cabeçalho */
+header {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: var(--white);
+    padding: 2.5rem 1rem;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+/* Layout Principal */
+main {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+}
+
+section {
+    background-color: var(--white);
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+section h2 {
+    color: var(--primary-color);
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+section h2::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 4px;
+    background-color: var(--secondary-color);
+    margin-top: 0.5rem;
+    border-radius: 2px;
+}
+
+/* Seção Sobre Nós - Organização de Imagem e Texto */
+#sobre-nos {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+#sobre-nos p {
+    font-size: 1.1rem;
+    color: #4a5568;
+}
+
+#sobre-nos img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    object-fit: cover;
+    margin-top: 1rem;
+}
+
+/* Seção de Contato e Informações */
+#contato address {
+    font-style: normal;
+    margin-bottom: 1.5rem;
+}
+
+#contato address p {
+    margin-bottom: 0.5rem;
+    font-size: 1.05rem;
+}
+
+#contato address a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+#contato address a:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #e2e8f0;
+    margin: 2rem 0;
+}
+
+#contato h3 {
+    color: var(--primary-color);
+    font-size: 1.4rem;
+    margin-bottom: 1.2rem;
+}
+
+/* Estilização do Formulário */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+form div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+label {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #4a5568;
+}
+
+input[type="text"],
+input[type="email"] {
+    padding: 0.75rem 1rem;
+    border: 1px solid #cbd5e0;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: var(--transition);
+    outline: none;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 3px rgba(49, 151, 149, 0.15);
+}
+
+button[type="submit"] {
+    background-color: var(--secondary-color);
+    color: var(--white);
+    border: none;
+    padding: 0.85rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: var(--transition);
+    align-self: flex-start;
+    margin-top: 0.5rem;
+}
+
+button[type="submit"]:hover {
+    background-color: #285e61;
+    transform: translateY(-1px);
+}
+
+#mensagem-sucesso {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: #c6f6d5;
+    color: #22543d;
+    border-radius: 6px;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* Responsividade para telas maiores (Desktop) */
+@media (min-width: 768px) {
+    #sobre-nos {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2.5rem;
+        align-items: center;
+    }
+
+    #sobre-nos img {
+        margin-top: 0;
+        max-height: 280px;
+    }
+}

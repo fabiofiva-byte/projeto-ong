@@ -1,60 +1,61 @@
-// Aguarda que todo o DOM seja carregado antes de executar o script
-document.addEventListener('DOMContentLoaded', () => {
-    
-    // Captura o elemento do formulário pelo seu ID
-    const formContato = document.getElementById('formContato');
+document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("formContato");
+    const inputNome = document.getElementById("nome");
+    const inputEmail = document.getElementById("email");
+    const erroNome = document.getElementById("erroNome");
+    const erroEmail = document.getElementById("erroEmail");
+    const mensagemAviso = document.getElementById("mensagemAviso");
 
-    // Adiciona o Event Listener para a ação de 'submit' (enviar)
-    formContato.addEventListener('submit', (evento) => {
-        // Previne o comportamento padrão do navegador (recarregar a página)
-        evento.preventDefault();
+    // Esconder mensagens de erro inicialmente
+    erroNome.style.display = "none";
+    erroEmail.style.display = "none";
 
-        // Captura e limpa (trim) os valores inseridos pelo utilizador
-        const nomeValor = document.getElementById('nome').value.trim();
-        const emailValor = document.getElementById('email').value.trim();
+    form.addEventListener("submit", (evento) => {
+        evento.preventDefault(); // Impede o recarregamento tático da página
+        let dadosValidos = true;
 
-        // Validação de segurança extra (evita submissões com espaços em branco)
-        if (nomeValor === '' || emailValor === '') {
-            alert('Por favor, preencha todos os campos com informações válidas.');
-            return;
+        // Validação do Nome: Apenas letras e espaços, mínimo de 3 caracteres
+        const regexNome = /^[a-zA-ZÀ-ÿ\s]{3,}$/;
+        if (!regexNome.test(inputNome.value.trim())) {
+            erroNome.style.display = "block";
+            inputNome.style.borderColor = "red";
+            dadosValidos = false;
+        } else {
+            erroNome.style.display = "none";
+            inputNome.style.borderColor = "green";
         }
 
-        // Estrutura os dados num objeto (boa prática para armazenar e escalar no futuro)
-        const dadosUsuario = {
-            nome: nomeValor,
-            email: emailValor,
-            dataRegisto: new Date().toISOString()
-        };
+        // Validação do E-mail: Padrão rigoroso de formatação
+        const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!regexEmail.test(inputEmail.value.trim())) {
+            erroEmail.style.display = "block";
+            inputEmail.style.borderColor = "red";
+            dadosValidos = false;
+        } else {
+            erroEmail.style.display = "none";
+            inputEmail.style.borderColor = "green";
+        }
 
-        // Guarda no Local Storage. 
-        // Como o Local Storage só aceita strings, usamos o JSON.stringify para converter o objeto
-        localStorage.setItem('dados_ong_contato', JSON.stringify(dadosUsuario));
+        // Se o perímetro estiver seguro, proceder com a gravação
+        if (dadosValidos) {
+            const nomeBlindado = inputNome.value.trim();
+            const emailBlindado = inputEmail.value.trim();
 
-        // Manipulação do DOM: Cria e exibe uma mensagem de sucesso na tela
-        exibirMensagemSucesso(nomeValor);
+            // Gravar no Local Storage
+            localStorage.setItem("ong_nome", nomeBlindado);
+            localStorage.setItem("ong_email", emailBlindado);
 
-        // Limpa os campos do formulário após o sucesso
-        formContato.reset();
+            // Feedback de sucesso
+            mensagemAviso.style.color = "green";
+            mensagemAviso.textContent = `Operação limpa, ${nomeBlindado}! O seu registo foi validado e guardado com segurança.`;
+            
+            // Limpar formulário
+            form.reset();
+            inputNome.style.borderColor = "";
+            inputEmail.style.borderColor = "";
+        } else {
+            mensagemAviso.style.color = "red";
+            mensagemAviso.textContent = "Alerta: Falha na validação de dados. Verifique os campos a vermelho.";
+        }
     });
 });
-
-// Função dedicada à manipulação do DOM
-function exibirMensagemSucesso(nome) {
-    // Verifica se já existe uma mensagem anterior e remove-a para não duplicar
-    let msgAntiga = document.getElementById('msg-sucesso');
-    if (msgAntiga) {
-        msgAntiga.remove();
-    }
-
-    // Cria um novo parágrafo dinamicamente
-    const mensagem = document.createElement('p');
-    mensagem.id = 'msg-sucesso';
-    mensagem.textContent = `Excelente, ${nome}! O seu registo foi guardado com sucesso.`;
-    mensagem.style.color = 'green';
-    mensagem.style.fontWeight = 'bold';
-    mensagem.style.marginTop = '15px';
-
-    // Insere a mensagem logo após o formulário
-    const form = document.getElementById('formContato');
-    form.insertAdjacentElement('afterend', mensagem);
-}

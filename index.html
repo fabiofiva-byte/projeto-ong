@@ -2,15 +2,41 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Projeto ONG - Cadastro</title>
+    <title>Projeto ONG - Cadastro e Ações</title>
     <link rel="stylesheet" href="./src/css/style.css">
 </head>
 <body>
+    <h1>Projeto ONG - Educação e Inclusão</h1>
+
+    <!-- ZONA DE ATERRAGEM DOS PROJETOS DINÂMICOS -->
+    <section id="area-projetos">
+        <h2>Ações e Projetos da ONG</h2>
+        <!-- O JavaScript irá injetar os cartões de projeto exatamente aqui -->
+        <div id="lista-projetos-dinamica"></div>
+    </section>
+
+    <hr style="margin: 30px 0;">
+
+    <!-- FORMULÁRIO DE CADASTRO TÁTICO -->
+    <h2>Junte-se à nossa causa</h2>
     <form id="formContato">
-        <input type="text" id="nome" placeholder="Nome" required>
-        <input type="email" id="email" placeholder="E-mail" required>
+        <div style="margin-bottom: 15px;">
+            <input type="text" id="nome" placeholder="Nome" required>
+            <span id="erroNome" style="color: red; display: none; font-size: 0.8em; margin-top: 4px; display: block;">* O nome deve conter apenas letras e ter no mínimo 3 caracteres.</span>
+        </div>
+        
+        <div style="margin-bottom: 15px;">
+            <input type="email" id="email" placeholder="E-mail" required>
+            <span id="erroEmail" style="color: red; display: none; font-size: 0.8em; margin-top: 4px; display: block;">* Formato de e-mail inválido.</span>
+        </div>
+        
         <button type="submit">Enviar</button>
     </form>
+    
+    <!-- Painel de mensagens de sucesso ou alerta geral -->
+    <div id="mensagemAviso" style="margin-top: 15px; font-weight: bold;"></div>
+
+    <!-- Script apontando para o diretório interno correto -->
     <script type="module" src="./src/js/main.js"></script>
 </body>
 </html>

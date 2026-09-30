@@ -42,22 +42,41 @@ function desenharProjetosEcra() {
     });
 }
 
-// === FUNÇÃO 2: RECONHECIMENTO DE AGENTE (Ler Local Storage) ===
+// === FUNÇÃO 2: GESTOR DE ESTADO DO AGENTE (CRUD) ===
 function verificarRegistoAnterior() {
     const nomeGuardado = localStorage.getItem("ong_nome");
-    const painel = document.getElementById("painelBoasVindas");
+    const emailGuardado = localStorage.getItem("ong_email");
     
-    if (nomeGuardado && painel) {
-        painel.innerHTML = "<h3 style='color: #008080; border-left: 4px solid #008080; padding-left: 10px;'>Bem-vindo de volta, Agente " + nomeGuardado + "! O seu registo está ativo.</h3>";
+    const painelBoasVindas = document.getElementById("painelBoasVindas");
+    const areaCadastro = document.getElementById("areaCadastro");
+    const painelAgente = document.getElementById("painelAgente");
+    const displayNome = document.getElementById("displayNome");
+    const displayEmail = document.getElementById("displayEmail");
+    
+    if (nomeGuardado && emailGuardado) {
+        // Modo: Agente Reconhecido (Esconde Formulário, Mostra Painel)
+        if(painelBoasVindas) painelBoasVindas.innerHTML = "<h3 style='color: #008080; border-left: 4px solid #008080; padding-left: 10px;'>Bem-vindo de volta, Agente " + nomeGuardado + "!</h3>";
+        if(areaCadastro) areaCadastro.style.display = "none";
+        if(painelAgente) {
+            painelAgente.style.display = "block";
+            displayNome.textContent = nomeGuardado;
+            displayEmail.textContent = emailGuardado;
+        }
+    } else {
+        // Modo: Novo Recruta (Mostra Formulário, Esconde Painel)
+        if(painelBoasVindas) painelBoasVindas.innerHTML = "";
+        if(areaCadastro) areaCadastro.style.display = "block";
+        if(painelAgente) painelAgente.style.display = "none";
     }
 }
 
-// === INICIALIZAÇÃO E SISTEMAS DE DEFESA DO FORMULÁRIO ===
+// === INICIALIZAÇÃO E SISTEMAS DE DEFESA ===
 document.addEventListener("DOMContentLoaded", () => {
     
     verificarRegistoAnterior();
     desenharProjetosEcra();
 
+    // Sensores do Formulário Principal
     const form = document.getElementById("formContato");
     const inputNome = document.getElementById("nome");
     const inputEmail = document.getElementById("email");
@@ -68,6 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if(erroNome) erroNome.style.display = "none";
     if(erroEmail) erroEmail.style.display = "none";
 
+    // AÇÃO CREATE / UPDATE: Gravar Registo
     if(form) {
         form.addEventListener("submit", (evento) => {
             evento.preventDefault(); 
@@ -97,22 +117,60 @@ document.addEventListener("DOMContentLoaded", () => {
                 const nomeBlindado = inputNome.value.trim();
                 const emailBlindado = inputEmail.value.trim();
 
+                // Guarda na base de dados do navegador (Local Storage)
                 localStorage.setItem("ong_nome", nomeBlindado);
                 localStorage.setItem("ong_email", emailBlindado);
 
                 mensagemAviso.style.color = "green";
-                mensagemAviso.textContent = "Operação limpa, " + nomeBlindado + "! Dados guardados e encriptados com sucesso no Local Storage.";
+                mensagemAviso.textContent = "Operação limpa! Dados guardados com sucesso.";
                 
                 form.reset();
                 inputNome.style.borderColor = "";
                 inputEmail.style.borderColor = "";
                 
+                // Recarrega o estado visual
                 verificarRegistoAnterior();
             } else {
                 mensagemAviso.style.color = "red";
-                mensagemAviso.textContent = "Alerta: Interceção de dados inválidos. Corrija os campos a vermelho.";
+                mensagemAviso.textContent = "Alerta: Verifique os campos a vermelho.";
+            }
+        });
+    }
+
+    // AÇÃO UPDATE: Botão Editar Dados
+    const btnEditar = document.getElementById("btnEditar");
+    if(btnEditar) {
+        btnEditar.addEventListener("click", () => {
+            // Puxa os dados antigos para o formulário
+            inputNome.value = localStorage.getItem("ong_nome") || "";
+            inputEmail.value = localStorage.getItem("ong_email") || "";
+            
+            // Força a exibição do formulário para edição
+            document.getElementById("areaCadastro").style.display = "block";
+            document.getElementById("painelAgente").style.display = "none";
+            document.getElementById("painelBoasVindas").innerHTML = "<h3 style='color: #ffa500; border-left: 4px solid #ffa500; padding-left: 10px;'>Modo de Edição Ativado.</h3>";
+            mensagemAviso.textContent = "";
+        });
+    }
+
+    // AÇÃO DELETE: Botão Apagar Registo
+    const btnApagar = document.getElementById("btnApagar");
+    if(btnApagar) {
+        btnApagar.addEventListener("click", () => {
+            // Pede confirmação tática ao agente
+            if(confirm("Atenção, Agente! Tem a certeza que deseja eliminar o seu registo da base de dados?")) {
+                // Remove os dados do Local Storage
+                localStorage.removeItem("ong_nome");
+                localStorage.removeItem("ong_email");
+                
+                // Limpa vestígios e reinicia o ecrã
+                if(form) form.reset();
+                mensagemAviso.textContent = "";
+                verificarRegistoAnterior();
+                alert("O seu registo foi apagado. Perímetro limpo.");
             }
         });
     }
 });
+
 

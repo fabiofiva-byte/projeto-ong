@@ -8,7 +8,7 @@
 <body>
     <h1>Projeto ONG - Educação e Inclusão</h1>
 
-    <!-- PAINEL DE RECONHECIMENTO DE UTILIZADOR (Injeção Dinâmica) -->
+    <!-- PAINEL DE RECONHECIMENTO DE UTILIZADOR -->
     <div id="painelBoasVindas"></div>
 
     <!-- ZONA DE ATERRAGEM DOS PROJETOS DINÂMICOS -->
@@ -19,21 +19,34 @@
 
     <hr style="margin: 30px 0;">
 
-    <!-- FORMULÁRIO DE CADASTRO TÁTICO -->
-    <h2>Junte-se à nossa causa</h2>
-    <form id="formContato">
-        <div style="margin-bottom: 15px;">
-            <input type="text" id="nome" placeholder="Nome" required>
-            <span id="erroNome" style="color: red; display: none; font-size: 0.8em; margin-top: 4px;">* O nome deve conter apenas letras e ter no mínimo 3 caracteres.</span>
+    <!-- NOVO: PAINEL DE CONTROLO DO AGENTE (Escondido por defeito) -->
+    <div id="painelAgente" style="display: none; background-color: #e0f7fa; padding: 20px; border-radius: 8px; border: 1px solid #008080; margin-bottom: 20px;">
+        <h3 style="color: #008080; margin-top: 0;">Painel de Operações do Agente</h3>
+        <p><strong>Nome de Código:</strong> <span id="displayNome"></span></p>
+        <p><strong>Canal de Comunicação:</strong> <span id="displayEmail"></span></p>
+        <div style="margin-top: 15px;">
+            <button id="btnEditar" style="background-color: #ffa500; color: #000; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; margin-right: 10px; font-weight: bold;">Editar Dados</button>
+            <button id="btnApagar" style="background-color: #dc143c; color: #fff; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; font-weight: bold;">Apagar Registo</button>
         </div>
-        
-        <div style="margin-bottom: 15px;">
-            <input type="email" id="email" placeholder="E-mail" required>
-            <span id="erroEmail" style="color: red; display: none; font-size: 0.8em; margin-top: 4px;">* Formato de e-mail inválido.</span>
-        </div>
-        
-        <button type="submit">Enviar</button>
-    </form>
+    </div>
+
+    <!-- ÁREA DE CADASTRO TÁTICO -->
+    <div id="areaCadastro">
+        <h2>Junte-se à nossa causa</h2>
+        <form id="formContato">
+            <div style="margin-bottom: 15px;">
+                <input type="text" id="nome" placeholder="Nome" required>
+                <span id="erroNome" style="color: red; display: none; font-size: 0.8em; margin-top: 4px;">* O nome deve conter apenas letras e ter no mínimo 3 caracteres.</span>
+            </div>
+            
+            <div style="margin-bottom: 15px;">
+                <input type="email" id="email" placeholder="E-mail" required>
+                <span id="erroEmail" style="color: red; display: none; font-size: 0.8em; margin-top: 4px;">* Formato de e-mail inválido.</span>
+            </div>
+            
+            <button type="submit">Gravar Registo</button>
+        </form>
+    </div>
     
     <!-- Painel de mensagens de sucesso ou alerta geral -->
     <div id="mensagemAviso" style="margin-top: 15px; font-weight: bold;"></div>
@@ -42,4 +55,5 @@
     <script type="module" src="./src/js/main.js"></script>
 </body>
 </html>
+
 
